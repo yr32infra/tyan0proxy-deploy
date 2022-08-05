@@ -1,0 +1,55 @@
+version: '3.9'
+
+services:
+  nginx:
+    image: nginx:1.23.1
+    hostname: nginx
+    container_name: tyan0proxy__nginx
+
+    restart: unless-stopped
+
+    volumes:
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: true
+
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+
+    networks:
+      - default
+
+  cloudflared:
+    image: cloudflare/cloudflared:2022.7.1
+    hostname: cloudflared
+    container_name: tyan0proxy__cloudflared
+
+    environment:
+      TUNNEL_METRICS: 0.0.0.0:9126
+      TUNNEL_URL: http://nginx:80
+      TUNNEL_HOSTNAME: tyan0.yr32.net
+
+    command: tunnel
+    user: root
+
+    volumes:
+      - type: bind
+        source: /etc/cloudflared/cert.pem
+        target: /etc/cloudflared/cert.pem
+        read_only: true
+
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+
+    networks:
+      - default
+
+networks:
+  default:
+    name: tyan0proxy__default
+
