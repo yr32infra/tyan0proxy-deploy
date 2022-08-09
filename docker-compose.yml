@@ -27,6 +27,8 @@ services:
     hostname: cloudflared
     container_name: tyan0proxy__cloudflared
 
+    restart: unless-stopped
+
     environment:
       TUNNEL_METRICS: 0.0.0.0:9126
       TUNNEL_URL: http://nginx:80
