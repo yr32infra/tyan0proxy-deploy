@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   nginx:
-    image: nginx:1.23.1
+    image: nginx:1.23.2
     hostname: nginx
     container_name: tyan0proxy__nginx
 
