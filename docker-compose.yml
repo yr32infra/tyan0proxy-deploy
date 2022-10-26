@@ -23,7 +23,7 @@ services:
       - default
 
   cloudflared:
-    image: cloudflare/cloudflared:2022.10.2
+    image: cloudflare/cloudflared:2022.10.3
     hostname: cloudflared
     container_name: tyan0proxy__cloudflared
 
