@@ -1,0 +1,36 @@
+name: validate nginx
+
+on:
+  pull_request:
+    paths:
+      - 'nginx.compat.conf'
+      - '.github/workflows/validate-nginx.yml'
+
+jobs:
+  validate-nginx:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3.0.2
+
+      - uses: actions/setup-node@v3.4.1
+
+      - name: install
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -qq nginx
+
+      - name: validate
+        shell: bash
+        run: |
+          sudo useradd -M nginx
+          shopt -s globstar
+          set -eux
+
+          for f in **/nginx*.conf; do
+              if ! sudo nginx -t -c "$(cd "$(dirname "$f")" && pwd)/$(basename "$f")"; then
+                  exit 1
+              fi
+          done
+
+          exit 0
