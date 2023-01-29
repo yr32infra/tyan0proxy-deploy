@@ -31,17 +31,10 @@ services:
 
     environment:
       TUNNEL_METRICS: 0.0.0.0:9126
-      TUNNEL_URL: http://nginx:80
-      TUNNEL_HOSTNAME: tyan0.yr32.net
+      TUNNEL_LOGFILE: /dev/stdout
 
-    command: tunnel
+    command: tunnel run --token ${TUNNEL_TOKEN}
     user: root
-
-    volumes:
-      - type: bind
-        source: /etc/cloudflared/cert.pem
-        target: /etc/cloudflared/cert.pem
-        read_only: true
 
     deploy:
       resources:
@@ -49,9 +42,15 @@ services:
           memory: 128m
 
     networks:
-      - default
+      default:
+      prometheus__cloudflared:
+        aliases:
+          - tyan0proxy__cloudflared
 
 networks:
   default:
     name: tyan0proxy__default
 
+  prometheus__cloudflared:
+    name: prometheus__cloudflared
+    external: true
