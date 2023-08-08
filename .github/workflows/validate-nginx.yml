@@ -3,7 +3,7 @@ name: validate nginx
 on:
   pull_request:
     paths:
-      - 'nginx.compat.conf'
+      - 'nginx.conf'
       - '.github/workflows/validate-nginx.yml'
 
 jobs:
