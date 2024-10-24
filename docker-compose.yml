@@ -23,7 +23,7 @@ services:
       - default
 
   cloudflared:
-    image: cloudflare/cloudflared:2024.6.0@sha256:8245fa2eeeabf437b061909cd59f123b39730f626bc676dc37cd3fb9f6880580
+    image: cloudflare/cloudflared:2024.10.1@sha256:52b9529db08f7ef827a2bce04b91945b475c651e46f583c30b70dd6773262ae3
     hostname: cloudflared
     container_name: tyan0proxy__cloudflared
 
