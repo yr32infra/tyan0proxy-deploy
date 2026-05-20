@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   nginx:
-    image: nginx:1.31.0@sha256:06aa3d7be10bc6307990c81bdca075793132e9163391abc370c015e344e23128
+    image: nginx:1.31.0@sha256:206a753092e3db9fc0c5c1f295fee35f0c298c23bd015032db5faa23910318bf
     hostname: nginx
     container_name: tyan0proxy__nginx
 
